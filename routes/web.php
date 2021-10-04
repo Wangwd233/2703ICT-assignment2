@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Review;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,13 @@ use App\Models\Review;
 |
 */
 
+Route::resource('item', ItemController::class);
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 
 Route::get('/test1', function () {
     $user = Review::find(2)->user;

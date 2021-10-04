@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Item;
+//use App\Models\Review;
 
 class ItemController extends Controller
 {
@@ -14,6 +16,8 @@ class ItemController extends Controller
     public function index()
     {
         //
+        $items = Item::all();
+        dd($items);
     }
 
     /**
