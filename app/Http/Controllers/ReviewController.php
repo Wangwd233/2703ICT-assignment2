@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Review;
 
 class ReviewController extends Controller
 {
@@ -45,7 +46,10 @@ class ReviewController extends Controller
      */
     public function show($id)
     {
+        $review = Review::find($id);
+        return view('reviews.review_show')->with('review', $review); 
         //
+        //dd('in review.show');
     }
 
     /**
@@ -56,7 +60,10 @@ class ReviewController extends Controller
      */
     public function edit($id)
     {
+        $review = Review::find($id);
+        return view('reviews.review_edit')->with('review', $review);
         //
+        //dd("In review edit");
     }
 
     /**

@@ -28,6 +28,30 @@
       color: white;
     }
 
+    .nav-bar-login {
+      background-color: #333;
+      overflow: hidden;
+    }
+
+    .nav-bar-login a {
+      float: right;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+
+    .nav-bar-login a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .nav-bar-login a.active {
+      background-color: #04AA6D;
+      color: white;
+    }
+
     button {
       color: white;
       padding: 10px 24px;
@@ -46,9 +70,22 @@
 <body>
     <div class="nav-bar">
       <a class="active" href="{{url("/item")}}">Home</a>
-      <a href="{{url('clients_detail')}}">Clients Detail</a>
-      <a href="{{url("booking_list")}}">Booking a Vehicle</a>
-      <a href="{{url("vehicle_total")}}">Total booking time</a>
+      <div class="nav-bar-login">
+        @auth <!--- user is logged in --->
+            <a><form method="POST" action= "{{url('/logout')}}">
+               {{csrf_field()}}
+                   <input type="submit" value="Logout">
+               </form></a>
+            <a>You are a {{Auth::user()->type}}</a>
+            <a>Welcome, {{Auth::user()->name}}!</a>
+        @else <!--- user is not logged in --->
+        
+               <a href="{{ route('login') }}">Login</a>
+               <a href="{{ route('register') }}">Register</a>
+        
+        @endauth
+      </div>
     </div>  
+    
     @yield('content')
 </body>

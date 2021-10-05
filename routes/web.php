@@ -5,6 +5,7 @@ use App\Models\Item;
 use App\Models\User;
 use App\Models\Review;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,9 @@ use App\Http\Controllers\ItemController;
 
 Route::resource('item', ItemController::class);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('review', ReviewController::class);
+
+Route::get('/', [ItemController::class, 'index']);
 
 
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
-//use App\Models\Review;
+use App\Models\Review;
 
 class ItemController extends Controller
 {
@@ -70,8 +70,10 @@ class ItemController extends Controller
     {
         //
         $item = Item::find($id);
+        $reviews = Item::find($id)->reviews;
+        
         //dd($item);
-        return view('items.item_show')->with('item', $item);
+        return view('items.item_show')->with('item', $item)->with('reviews', $reviews);
 
     }
 
