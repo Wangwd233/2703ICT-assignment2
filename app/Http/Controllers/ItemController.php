@@ -17,7 +17,7 @@ class ItemController extends Controller
     {
         //
         $items = Item::all();
-        dd($items);
+        return view('items.items_list')->with('items', $items);
     }
 
     /**
@@ -28,6 +28,8 @@ class ItemController extends Controller
     public function create()
     {
         //
+        //dd('create route');
+        return view('items.item_create');
     }
 
     /**
@@ -38,7 +40,24 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+           'name' => 'required|max:255',
+           'manufacturer' => 'required|max:255',
+           'description' => 'required|max:255',
+           'price' => 'required|numeric|gte:1',
+           'url' => 'url|nullable',
+        ]);
+
+        $item = new Item();
+        $item->name = $request->name;
+        $item->manufacturer = $request->manufacturer;
+        $item->description = $request->description;
+        $item->price = $request->price;
+        $item->url = $request->url;
+        $item->save();
+        return redirect("item/$item->id");
         //
+        //dd("store route");
     }
 
     /**
@@ -50,6 +69,10 @@ class ItemController extends Controller
     public function show($id)
     {
         //
+        $item = Item::find($id);
+        //dd($item);
+        return view('items.item_show')->with('item', $item);
+
     }
 
     /**
@@ -60,7 +83,10 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
+        $item = item::find($id);
+        return view('items.item_edit')->with('item', $item);
         //
+        //dd("In edit");
     }
 
     /**
@@ -72,7 +98,24 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'manufacturer' => 'required|max:255',
+            'description' => 'required|max:255',
+            'price' => 'required|numeric|gte:1',
+            'url' => 'url|nullable',
+        ]);
+        
+        $item = Item::find($id);
+        $item->name = $request->name;
+        $item->manufacturer = $request->manufacturer;
+        $item->description = $request->description;
+        $item->price = $request->price;
+        $item->url = $request->url;
+        $item->save();
+        return redirect("item/$item->id");
         //
+        //dd('In update');
     }
 
     /**

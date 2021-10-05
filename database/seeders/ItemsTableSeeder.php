@@ -28,7 +28,7 @@ class ItemsTableSeeder extends Seeder
             'manufacturer' => 'Coles',
             'description' => 'Fresh coles bread',
             'price' => '5.00',
-            'url' => '',
+            'url' => 'https://www.coles.com/',
             'created_at' => DB::raw('CURRENT_TIMESTAMP'),
         ]);
         DB::table('items')->insert([

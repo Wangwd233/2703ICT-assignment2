@@ -19,7 +19,7 @@ class CreateItemsTable extends Migration
             $table->string('manufacturer');
             $table->string('description');
             $table->float('price');
-            $table->string('url');
+            $table->string('url')->nullable();
             $table->timestamps();
         });
     }

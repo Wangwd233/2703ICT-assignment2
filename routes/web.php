@@ -25,8 +25,8 @@ Route::get('/', function () {
 
 
 
-Route::get('/test1', function () {
-    $user = Review::find(2)->user;
-    dd($user->name);
-});
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
+require __DIR__.'/auth.php';
