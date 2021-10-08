@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Item;
 use App\Models\Review;
 
 class ReviewController extends Controller
@@ -35,6 +37,18 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $this->validate($request, [
+            'review' => 'required|max:255',
+            'rating' => 'required|numeric|gte:1|lte:5',
+        ]);
+        $review = new Review();
+        $review->item_id = $request->item_id;
+        $review->user_id = Auth::user()->id;
+        $review->rating = $request->rating;
+        $review->review = $request->review;
+        $review->save();
+        return redirect("item/$request->item_id");
         //
     }
 
@@ -75,6 +89,15 @@ class ReviewController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'review' => 'required|max:255',
+            'rating' => 'required|numeric|gte:1|lte:5',
+         ]);
+        $review = Review::find($id);
+        $review->review = $request->review;
+        $review->rating = $request->rating;
+        $review->save();
+        return redirect("review/$review->id");
         //
     }
 
@@ -87,5 +110,9 @@ class ReviewController extends Controller
     public function destroy($id)
     {
         //
+        $item = Review::find($id)->item;
+        $review = Review::find($id);
+        $review->delete();
+        return redirect("item/{$item->id}");
     }
 }

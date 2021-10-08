@@ -29,5 +29,40 @@ class ReviewsTableSeeder extends Seeder
             'review' => 'Fresh and delicious.',
             'created_at' => DB::raw('CURRENT_TIMESTAMP'),
         ]);
+        DB::table('reviews')->insert([
+            'item_id' => 1,
+            'user_id' => 2,
+            'rating' => 5,
+            'review' => 'Fresh and delicious.',
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'),
+        ]);
+        DB::table('reviews')->insert([
+            'item_id' => 1,
+            'user_id' => 3,
+            'rating' => 5,
+            'review' => 'Fresh and delicious.',
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'),
+        ]);
+        DB::table('reviews')->insert([
+            'item_id' => 1,
+            'user_id' => 4,
+            'rating' => 5,
+            'review' => 'Fresh and delicious.',
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'),
+        ]);
+        DB::table('reviews')->insert([
+            'item_id' => 1,
+            'user_id' => 5,
+            'rating' => 5,
+            'review' => 'Fresh and delicious.',
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'),
+        ]);
+        DB::table('reviews')->insert([
+            'item_id' => 3,
+            'user_id' => 3,
+            'rating' => 5,
+            'review' => 'Fresh and delicious.',
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'),
+        ]);
     }
 }

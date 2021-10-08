@@ -24,7 +24,17 @@ Route::resource('review', ReviewController::class);
 
 Route::get('/', [ItemController::class, 'index']);
 
+Route::get('review/create/{item_id}', function($item_id){
+    return view('reviews.review_create')->with('item_id', $item_id);
+});
 
+Route::get('item/delete/{item_id}', function($item_id){
+    return view('items.item_delete')->with('item_id', $item_id);
+});
+
+Route::get('review/delete/{review_id}', function($review_id){
+    return view('reviews.review_delete')->with('review_id', $review_id);
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <style>
     .nav-bar {
-      background-color: #333;
+      background-color: #1BD7CC;
       overflow: hidden;
     }
 
@@ -29,7 +29,7 @@
     }
 
     .nav-bar-login {
-      background-color: #333;
+      background-color: #1BD7CC;
       overflow: hidden;
     }
 
@@ -63,8 +63,13 @@
       color: black;
       border: 2px solid blue;
     }
+
+    
   </style>
-  <link rel="stylesheet" type="text/css" href="{{asset ('css/wp.css')}}" >
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <!--<link rel="stylesheet" type="text/css" href="{{asset ('css/wp.css')}}" >-->
+  <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
 </head>
 
 <body>

@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Review;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
+    function __construct(){
+        $this->middleware('auth', ['except'=>['index', 'show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -71,9 +75,19 @@ class ItemController extends Controller
         //
         $item = Item::find($id);
         $reviews = Item::find($id)->reviews;
-        
+        $isReviewed = false;
+        if (Auth::check()){
+            $user_id = Auth::user()->id;
+            for ($i=0; $i < count($reviews); $i++) { 
+               if ($reviews[$i]->user_id == $user_id){
+                   $isReviewed = true;
+               }
+            }; 
+        }
+        $reviews = Review::where('item_id', '=', $id)->paginate(5);
+         
         //dd($item);
-        return view('items.item_show')->with('item', $item)->with('reviews', $reviews);
+        return view('items.item_show')->with('item', $item)->with('reviews', $reviews)->with('isReviewed', $isReviewed);
 
     }
 
@@ -128,6 +142,15 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
+        $reviews = Item::find($id)->reviews;
+        for($i=0;$i<count($reviews);$i++){
+            $review = Review::find($reviews[$i]->id);
+            $review->delete();
+        };
+        $item = Item::find($id);
+        $item->delete();
+        return redirect('item');
         //
+        //dd('in item delete');
     }
 }
