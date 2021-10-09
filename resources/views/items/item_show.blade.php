@@ -26,22 +26,38 @@
       <p>Recommended retail price: {{$item->price}}</p>
       <p>Url: <a href="{{$item->url}}" class="btn btn-light">{{$item->url}}</a></p>
       <p>Create date: {{$item->created_at}}</p><br>
-      
-    
-       <h3>Reviews for {{$item->name}}</h3>
-       @foreach ($reviews as $review)
-          <p><a class="btn btn-secondary" href="{{url("review/$review->id")}}">Review from {{$review->user->name}}</a></p>
-       @endforeach
 
-        {{$reviews->links()}}
-
-       @if(Auth::check())
+      @if(Auth::check())
          @if($isReviewed)
            <p>Your have already create a review for {{$item->name}}</p>
          @else 
            <a class="btn btn-light" href="{{url("review/create/$item->id")}}">Create a review with {{$item->name}}</a>
         @endif
        @endif
+      <div class="container">
+        <div class="panel-group">
+       <h2>Reviews history</h2>
+        @foreach ($reviews as $review)
+         <div class="panel panel-primary">
+         @if ($review->like > $review->dislike)
+           <div class="bg-success">
+         @elseif ($review->like < $review->dislike)
+           <div class="bg-danger">
+         @else
+           <div class="bg-light">
+         @endif
+          <div class="panel-heading"><a class="btn btn-primary" href="{{url("review/$review->id")}}">Review from {{$review->user->name}} </a></div>
+          <div class="panel-body">
+            <p>Content: {{$review->review}}</p>
+             <p>rating: {{$review->rating}}</p>
+          </div>
+          </div>
+          </div>
+        @endforeach
+        </div>
+       </div>
+        {{$reviews->links()}}
+  
     </div>
     <div class="col-sm">
        @if(Auth::check())

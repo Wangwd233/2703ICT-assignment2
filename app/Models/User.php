@@ -50,4 +50,8 @@ class User extends Authenticatable
     function images(){
         return $this->hasMany('App\Models\Image');
     }
+
+    function reviewclicks(){
+        return $this->hasMany('App\Models\Reviewclick');
+    }
 }

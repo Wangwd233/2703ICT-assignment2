@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Review;
+use App\Models\Reviewclick;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
@@ -151,6 +152,11 @@ class ItemController extends Controller
         $reviews = Item::find($id)->reviews;
         for($i=0;$i<count($reviews);$i++){
             $review = Review::find($reviews[$i]->id);
+            $reviewclicks = Review::find($reviews[$i]->id)->reviewclicks;
+            for($j=0;$j<count($reviewclicks);$j++){
+              $reviewclick = Reviewclick::find($reviewclicks[$j]->id);
+              $reviewclick->delete();
+            }
             $review->delete();
         };
         $item = Item::find($id);

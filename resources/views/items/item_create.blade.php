@@ -19,7 +19,8 @@
      <p><label>Price:</label><br><input type="text" name="price" value="{{old('price')}}"> <nobr class="text-danger">{{$errors->first('price')}}</nobr></p>
      <p><label>Url(Option):</label><br><input type="text" name="url" value="{{old('url')}}"> <nobr class="text-danger">{{$errors->first('url')}}</nobr></p>
      <input type="submit" value="Create Item" class="btn btn-dark">
-  </form>
+    </form>
+    
     </div>
     <div class="col-sm">
       

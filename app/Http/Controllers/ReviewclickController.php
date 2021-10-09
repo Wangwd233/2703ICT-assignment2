@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Image;
+use App\Models\Review;
+use App\Models\Reviewclick;
 
-class ImageController extends Controller
+class ReviewclickController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +26,6 @@ class ImageController extends Controller
     public function create()
     {
         //
-        //dd('in image create');
     }
 
     /**
@@ -36,18 +36,20 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'image' => 'required|image|size:900',
-        ]);
-        $image_store = request()->file('image')->store('items_images', 'public');
-        $image = new Image();
-        $image->item_id = $request->item_id;
-        $image->user_id = $request->user_id;
-        $image->images = $image_store;
-        $image->save();
-        return redirect('/');
+        $reviewclick = new Reviewclick();
+        $reviewclick->review_id = $request->review_id;
+        $reviewclick->user_id = $request->user_id;
+        $reviewclick->save();
+        $review = Review::find($request->review_id);
+        if($request->prefer == 'like'){
+            $review->like = $review->like + 1;
+        }else(
+            $review->dislike = $review->dislike + 1
+        );
+        $review->save();
+        return redirect("review/$request->review_id");
         //
-        //dd($request->user_id);
+        //dd('in reviewclick');
     }
 
     /**

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Review;
+use App\Models\Reviewclick;
 
 class ReviewController extends Controller
 {
@@ -47,6 +48,8 @@ class ReviewController extends Controller
         $review->user_id = Auth::user()->id;
         $review->rating = $request->rating;
         $review->review = $request->review;
+        $review->like = $request->like;
+        $review->dislike = $request->dislike;
         $review->save();
         return redirect("item/$request->item_id");
         //
@@ -60,8 +63,18 @@ class ReviewController extends Controller
      */
     public function show($id)
     {
+        $reviewclick = Review::find($id)->reviewclicks;
+        $user_id = null;
+        if(count($reviewclick) > 0){
+            for($i=0; $i<count($reviewclick); $i++){
+              if($reviewclick[$i]->user_id == Auth::user()->id){
+                  $user_id = Auth::user()->id;
+              }
+            };
+        }
+        
         $review = Review::find($id);
-        return view('reviews.review_show')->with('review', $review); 
+        return view('reviews.review_show')->with('review', $review)->with('user_id', $user_id); 
         //
         //dd('in review.show');
     }
@@ -111,6 +124,11 @@ class ReviewController extends Controller
     {
         //
         $item = Review::find($id)->item;
+        $reviewclicks = Review::find($id)->reviewclicks;
+        for($i=0;$i<count($reviewclicks);$i++){
+            $reviewclick = Reviewclick::find($reviewclicks[$i]->id);
+            $reviewclick->delete();
+        };
         $review = Review::find($id);
         $review->delete();
         return redirect("item/{$item->id}");

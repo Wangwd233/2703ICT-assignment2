@@ -22,13 +22,18 @@
            <nobr class="text-danger">{{$errors->first('review')}}</nobr></p>
            <p><label>Rating(number from 1 to 5):</label><br><input type="text" name="rating" value="{{old('rating')}}"> 
            <nobr class="text-danger">{{$errors->first('rating')}}</nobr></p>
+           <input type="hidden" name="like" value="0">
+           <input type="hidden" name="dislike" value="0">
          @else   
            <input type="hidden" name="item_id" value="{{$item_id}}">  
            <p><label>Review:</label><br><input type="text" name="review"></p>
            <p><label>Rating(number from 1 to 5):</label><br><input type="text" name="rating"></p>
+           <input type="hidden" name="like" value="0">
+           <input type="hidden" name="dislike" value="0">
          @endif
          <input type="submit" value="Create review" class="btn btn-light">
         </form>
+
         <a class="btn btn-light" href="{{url("item/$item_id")}}">Go back</a>
       </div>
       <div class="col-sm">

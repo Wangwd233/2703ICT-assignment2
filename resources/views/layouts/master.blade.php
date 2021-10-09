@@ -51,19 +51,6 @@
       background-color: #04AA6D;
       color: white;
     }
-
-    button {
-      color: white;
-      padding: 10px 24px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      background-color: white;
-      color: black;
-      border: 2px solid blue;
-    }
-
     
   </style>
   

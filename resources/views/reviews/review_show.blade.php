@@ -8,7 +8,29 @@
       <div class="container">
         <div class="row">
           <div class="col-sm">
-      
+           <div>
+           @if($user_id == Auth::user()->id)
+              <input type="submit" value="like" class="btn btn-success btn-block" disabled="true">
+              <input type="submit" value="dislike" class="btn btn-danger btn-block" disabled="true">
+              <h2>You have already voted for the review</h2>
+           @else
+             <form method="POST" action="{{url("reviewclick")}}">
+               {{csrf_field()}}
+               <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+               <input type="hidden" name="review_id" value="{{$review->id}}">
+               <input type="hidden" name="prefer" value="like">
+               <input type="submit" value="like" class="btn btn-success btn-block">
+             </form>
+             <form method="POST" action="{{url("reviewclick")}}">
+               {{csrf_field()}}
+               <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+               <input type="hidden" name="review_id" value="{{$review->id}}">
+               <input type="hidden" name="prefer" value="dislike">
+               <input type="submit" value="dislike" class="btn btn-danger btn-block">
+             </form>
+           @endif
+            
+            </div>
           </div>
           <div class="col-sm">
              <h2>Review from {{$review->user->name}}</h2>

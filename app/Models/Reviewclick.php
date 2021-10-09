@@ -5,24 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Review extends Model
+class Reviewclick extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'rating',
-        'review',
+        'review_id',
+        'user_id',
     ];
 
-    function item(){
-        return $this->belongsTo('App\Models\Item');
+    function review(){
+        return $this->belongsTo('App\Models\Review');
     }
 
     function user(){
         return $this->belongsTo('App\Models\User');
-    }
-
-    function reviewclicks(){
-        return $this->hasMany('App\Models\Reviewclick');
     }
 }
