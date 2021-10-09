@@ -12,6 +12,6 @@
   </ul>
   @if(Auth::guest())
   @else
-    <h3><a href = "{{url('item/create')}}">Create Item</a></h3>
+    <h3><a href = "{{url('item/create')}}" class="btn btn-dark">Create Item</a></h3>
   @endif
 @endsection

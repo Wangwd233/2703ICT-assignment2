@@ -23,10 +23,11 @@
              @if(Auth::guest())
              @else
                 @if(Auth::user()->name == $review->user->name || Auth::user()->type == "Moderator")
-                   <h2><button class="btn btn-dark"><a href="{{url("review/$review->id/edit")}}">Edit review</a></button></h2>
-                   <h2><button class="btn btn-dark"><a href="{{url("review/delete/$review->id")}}">Delete review</a></button></h2>
+                   <a class="btn btn-light" href="{{url("review/$review->id/edit")}}">Edit review</a>
+                   <a class="btn btn-light" href="{{url("review/delete/$review->id")}}">Delete review</a>
                 @endif
              @endif
+             <a class="btn btn-light" href="{{url("item/$review->item_id")}}">Go back</a>
           </div>
           <div class="col-sm">
    

@@ -16,15 +16,16 @@
           {{method_field('PUT')}}
              @if (count($errors) > 0)
                <p><label>Review:</label><br><input type="text" name="review" value="{{old('review')}}"> 
-               <nobr class="alert">{{$errors->first('review')}}</nobr></p>
+               <nobr class="text-danger">{{$errors->first('review')}}</nobr></p>
                <p><label>Rating(number from 1 to 5):</label><br><input type="text" name="rating" value="{{old('rating')}}"> 
-               <nobr class="alert">{{$errors->first('rating')}}</nobr></p>
+               <nobr class="text-danger">{{$errors->first('rating')}}</nobr></p>
              @else
                <p><label>Review:</label><br><input type="text"  name="review" value="{{$review->review}}"></p>
                <p><label>Rating(number from 1 to 5):</label><br><input type="text"  name="rating" value="{{$review->rating}}"></p>
             @endif
-               <input type="submit" value="Update review">
+               <input type="submit" value="Update review" class="btn btn-light">
           </form>
+          <a class="btn btn-light" href="{{url("item/$review->item_id")}}">Go back</a>
         </div>
         <div class="col-sm">
     

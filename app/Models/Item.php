@@ -19,4 +19,8 @@ class Item extends Model
     function reviews() {
         return $this->hasMany('App\Models\Review');
     }
+
+    function images(){
+        return $this->hasMany('App\Models\Image');
+    }
 }

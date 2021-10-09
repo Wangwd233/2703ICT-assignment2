@@ -74,12 +74,12 @@
 
 <body>
     <div class="nav-bar">
-      <a class="active" href="{{url("/item")}}">Home</a>
+      <a class="" href="{{url("/item")}}">Home</a>
       <div class="nav-bar-login">
         @auth <!--- user is logged in --->
             <a><form method="POST" action= "{{url('/logout')}}">
                {{csrf_field()}}
-                   <input type="submit" value="Logout">
+                   <input type="submit" value="Logout" class="btn btn-info">
                </form></a>
             <a>You are a {{Auth::user()->type}}</a>
             <a>Welcome, {{Auth::user()->name}}!</a>

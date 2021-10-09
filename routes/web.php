@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Review;
+use App\Models\Image;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,9 @@ Route::resource('item', ItemController::class);
 
 Route::resource('review', ReviewController::class);
 
+Route::resource('image', ImageController::class);
+
+
 Route::get('/', [ItemController::class, 'index']);
 
 Route::get('review/create/{item_id}', function($item_id){
@@ -32,8 +37,13 @@ Route::get('item/delete/{item_id}', function($item_id){
     return view('items.item_delete')->with('item_id', $item_id);
 });
 
+
 Route::get('review/delete/{review_id}', function($review_id){
     return view('reviews.review_delete')->with('review_id', $review_id);
+});
+
+Route::get('image/create/{item_id}', function($item_id){
+    return view('images.image_upload')->with('item_id', $item_id);
 });
 
 Route::get('/dashboard', function () {
