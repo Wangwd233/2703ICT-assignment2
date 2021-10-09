@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Review;
+use App\Models\Follow;
 use App\Models\Reviewclick;
 
 class ReviewController extends Controller
@@ -64,17 +65,30 @@ class ReviewController extends Controller
     public function show($id)
     {
         $reviewclick = Review::find($id)->reviewclicks;
+        $reviewer_id = Review::find($id)->user_id;
         $user_id = null;
-        if(count($reviewclick) > 0){
+        $isFollowed = false;
+        if(Auth::check()){
+          if(count($reviewclick) > 0){
             for($i=0; $i<count($reviewclick); $i++){
               if($reviewclick[$i]->user_id == Auth::user()->id){
                   $user_id = Auth::user()->id;
               }
             };
-        }
+          }
         
+            $follows = Follow::where('follower_id', '=', Auth::user()->id)->get();
+            if(count($follows) > 0){
+               for ($i=0; $i <count($follows) ; $i++) { 
+                  if($follows[$i]->user_id == $reviewer_id){
+                      $isFollowed = true;
+                  }
+                }
+            };
+        };
+
         $review = Review::find($id);
-        return view('reviews.review_show')->with('review', $review)->with('user_id', $user_id); 
+        return view('reviews.review_show')->with('review', $review)->with('user_id', $user_id)->with('isFollowed', $isFollowed); 
         //
         //dd('in review.show');
     }

@@ -54,4 +54,8 @@ class User extends Authenticatable
     function reviewclicks(){
         return $this->hasMany('App\Models\Reviewclick');
     }
+
+    function follows(){
+        return $this->hasMany('App\Models\Follow');
+    }
 }

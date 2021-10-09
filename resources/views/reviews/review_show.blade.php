@@ -9,6 +9,7 @@
         <div class="row">
           <div class="col-sm">
            <div>
+          @if(Auth::check())
            @if($user_id == Auth::user()->id)
               <input type="submit" value="like" class="btn btn-success btn-block" disabled="true">
               <input type="submit" value="dislike" class="btn btn-danger btn-block" disabled="true">
@@ -29,7 +30,7 @@
                <input type="submit" value="dislike" class="btn btn-danger btn-block">
              </form>
            @endif
-            
+          @endif
             </div>
           </div>
           <div class="col-sm">
@@ -52,7 +53,17 @@
              <a class="btn btn-light" href="{{url("item/$review->item_id")}}">Go back</a>
           </div>
           <div class="col-sm">
-   
+           @if(Auth::check())
+            @if(Auth::user()->id == $review->user_id || $isFollowed == true)
+              <input type="submit" value="Follow the user" class="btn btn-secondary btn-block" disabled="true">
+            @else
+             <form method="POST" action="{{url("follow")}}">
+               {{csrf_field()}}
+               <input type="hidden" name="reviewer_id" value="{{$review->user_id}}">
+               <input type="submit" value="Follow the user" class="btn btn-secondary btn-block">
+              </form>
+            @endif
+           @endif
           </div>
         </div>
       </div>

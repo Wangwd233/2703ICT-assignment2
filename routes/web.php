@@ -9,6 +9,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ReviewclickController;
+use App\Http\Controllers\FollowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,8 @@ Route::resource('review', ReviewController::class);
 Route::resource('image', ImageController::class);
 
 Route::resource('reviewclick', ReviewclickController::class);
+
+Route::resource('follow', FollowController::class);
 
 
 Route::get('/', [ItemController::class, 'index']);

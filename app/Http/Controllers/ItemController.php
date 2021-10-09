@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Review;
 use App\Models\Reviewclick;
+use App\Models\Follow;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
@@ -22,7 +24,25 @@ class ItemController extends Controller
     {
         //
         $items = Item::all();
-        return view('items.items_list')->with('items', $items);
+        $reviewers = [];
+        $reviews = [];
+        if (Auth::check()){
+            $user_id = Auth::user()->id;
+            $follows = Follow::where('follower_id', '=', $user_id)->get();
+            if(count($follows) > 0){
+                for ($i=0; $i < count($follows); $i++) { 
+                    $reviewers[$i] = User::find($follows[$i]->user_id);
+                };
+            }
+            
+            if(count($reviewers) > 0){
+                for ($j=0; $j < count($reviewers); $j++) { 
+                    $reviews[$j] = Review::where('user_id', '=', $reviewers[$j]->id)->get();
+                }
+            }   
+        };
+        
+        return view('items.items_list')->with('items', $items)->with('reviewers', $reviewers)->with('reviews', $reviews);
     }
 
     /**
