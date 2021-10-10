@@ -41,7 +41,7 @@ class FollowController extends Controller
         $follow->follower_id = Auth::user()->id;
         $follow->user_id = $request->reviewer_id;
         $follow->save();
-        return redirect('/');
+        return redirect("review/$request->review_id");
         //
         //dd('in follow');
     }
@@ -88,7 +88,15 @@ class FollowController extends Controller
      */
     public function destroy($id)
     {
+        $follows = Follow::where('follower_id', '=', Auth::user()->id)->get();
+        for ($i=0; $i <count($follows) ; $i++) { 
+            if ($follows[$i]->user_id == $id){
+                $follow = Follow::find($follows[$i]->id);
+            }
+        }
+        $follow->delete();
+        return redirect('/');
         //
-        dd('in follows delete');
+        //dd('in follows delete');
     }
 }

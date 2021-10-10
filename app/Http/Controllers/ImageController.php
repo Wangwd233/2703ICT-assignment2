@@ -37,7 +37,7 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'image' => 'required|image|size:900',
+            'image' => 'required|image|size:1000',
         ]);
         $image_store = request()->file('image')->store('items_images', 'public');
         $image = new Image();

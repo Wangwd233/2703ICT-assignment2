@@ -59,6 +59,7 @@
             @else
              <form method="POST" action="{{url("follow")}}">
                {{csrf_field()}}
+               <input type="hidden" name="review_id" value="{{$review->id}}">
                <input type="hidden" name="reviewer_id" value="{{$review->user_id}}">
                <input type="submit" value="Follow the user" class="btn btn-secondary btn-block">
               </form>

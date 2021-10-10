@@ -11,6 +11,9 @@ use App\Models\Reviewclick;
 
 class ReviewController extends Controller
 {
+    function __construct(){
+        $this->middleware('auth', ['except'=>['index', 'show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -52,7 +55,7 @@ class ReviewController extends Controller
         $review->like = $request->like;
         $review->dislike = $request->dislike;
         $review->save();
-        return redirect("item/$request->item_id");
+        return redirect("review/$review->id");
         //
     }
 

@@ -9,6 +9,8 @@ use App\Models\Reviewclick;
 use App\Models\Follow;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ItemController extends Controller
 {
@@ -66,7 +68,7 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-           'name' => 'required|max:255',
+           'name' => 'required|max:255|unique:items,name',
            'manufacturer' => 'required|max:255',
            'description' => 'required|max:255',
            'price' => 'required|numeric|gte:1',
@@ -141,8 +143,10 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $name = $request->name;
         $this->validate($request, [
             'name' => 'required|max:255',
+            Rule::unique('items')->ignore($name),
             'manufacturer' => 'required|max:255',
             'description' => 'required|max:255',
             'price' => 'required|numeric|gte:1',

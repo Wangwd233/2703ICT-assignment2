@@ -16,6 +16,7 @@
            <h2>Image for {{$item->name}}</h2>
            @foreach ($images as $image)
              <img src="{{url($image->images)}}" alt="item image" style="width:300px;height:300px;">
+             <h2>Uploaded by {{$image->user->name}} at {{$image->created_at}}</h2>
            @endforeach
         @endif
     </div>
