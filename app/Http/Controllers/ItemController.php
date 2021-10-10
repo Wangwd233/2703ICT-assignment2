@@ -8,6 +8,7 @@ use App\Models\Review;
 use App\Models\Reviewclick;
 use App\Models\Follow;
 use App\Models\User;
+use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -174,6 +175,11 @@ class ItemController extends Controller
     public function destroy($id)
     {
         $reviews = Item::find($id)->reviews;
+        $images = Item::find($id)->images;
+        for ($n=0; $n < count($images); $n++) { 
+            $image = Image::find($images[$n]->id);
+            $image->delete();
+        };
         for($i=0;$i<count($reviews);$i++){
             $review = Review::find($reviews[$i]->id);
             $reviewclicks = Review::find($reviews[$i]->id)->reviewclicks;
