@@ -8,17 +8,17 @@
 <div class="container">
   <div class="row">
     <div class="col-sm">
-        @if($isUploaded == false)
+        
           @if(Auth::check())
              <a class="btn btn-light" href="{{url("image/create/$item->id")}}">Upload a image</a>
           @endif
-        @else
+          
            <h2>Image for {{$item->name}}</h2>
            @foreach ($images as $image)
              <img src="{{url($image->images)}}" alt="item image" style="width:300px;height:300px;">
              <h2>Uploaded by {{$image->user->name}} at {{$image->created_at}}</h2>
            @endforeach
-        @endif
+       
     </div>
     <div class="col-sm">
       <h1>Item name: {{$item->name}}</h1>

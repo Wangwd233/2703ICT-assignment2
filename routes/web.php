@@ -52,6 +52,10 @@ Route::get('image/create/{item_id}', function($item_id){
     return view('images.image_upload')->with('item_id', $item_id);
 });
 
+Route::get('/documentation', function(){
+    return view('documentation.documentation');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

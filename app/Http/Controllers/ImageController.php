@@ -37,7 +37,7 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'image' => 'required|image|size:1000',
+            'image' => 'required|image',
         ]);
         $image_store = request()->file('image')->store('items_images', 'public');
         $image = new Image();
@@ -45,7 +45,7 @@ class ImageController extends Controller
         $image->user_id = $request->user_id;
         $image->images = $image_store;
         $image->save();
-        return redirect('/');
+        return redirect("item/$request->item_id");
         //
         //dd($request->user_id);
     }

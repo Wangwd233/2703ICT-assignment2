@@ -100,7 +100,7 @@ class ItemController extends Controller
         $reviews = Item::find($id)->reviews;
         $images = Item::find($id)->images;
         $isReviewed = false;
-        $isUploaded = false;
+        //$isUploaded = false;
         if (Auth::check()){
             $user_id = Auth::user()->id;
             for ($i=0; $i < count($reviews); $i++) { 
@@ -109,14 +109,14 @@ class ItemController extends Controller
                }
             }; 
         }
-        if (count($images) > 0){
+        /*if (count($images) > 0){
             $isUploaded = true;
-        }
+        }*/
         
         $reviews = Review::where('item_id', '=', $id)->paginate(5);
          
         //dd($item);
-        return view('items.item_show')->with('item', $item)->with('reviews', $reviews)->with('images', $images)->with('isReviewed', $isReviewed)->with('isUploaded', $isUploaded);
+        return view('items.item_show')->with('item', $item)->with('reviews', $reviews)->with('images', $images)->with('isReviewed', $isReviewed);
 
     }
 

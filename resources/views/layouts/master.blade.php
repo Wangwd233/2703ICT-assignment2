@@ -62,6 +62,7 @@
 <body>
     <div class="nav-bar">
       <a class="" href="{{url("/item")}}">Home</a>
+      <a class="" href="{{url("/documentation")}}">Documentation</a>
       <div class="nav-bar-login">
         @auth <!--- user is logged in --->
             <a><form method="POST" action= "{{url('/logout')}}">
